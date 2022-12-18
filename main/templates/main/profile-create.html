@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="bg-dark rounded p-3">
+        <form action="/profile/create/" method="post">
+            {% csrf_token %}
+            {{ form.title }}
+    
+            <button class="btn btn-primary" type="submit">Create</button>
+        </form>
+    </div>
+{% endblock %}
