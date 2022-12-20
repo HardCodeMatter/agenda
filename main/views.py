@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Profile, Task
 from .forms import ProfileForm, TaskForm
 
@@ -6,6 +7,7 @@ from .forms import ProfileForm, TaskForm
 def index(request):
     return render(request, 'main/base.html', {})
 
+@login_required
 def profile_create(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
@@ -22,11 +24,13 @@ def profile_create(request):
 
     return render(request, 'main/profile-create.html', {'form': form})
 
+@login_required
 def profile_list(request):
     profiles = Profile.objects.filter(user_id=request.user.id)
 
     return render(request, 'main/profile-list.html', {'profiles': profiles})
 
+@login_required
 def profile_view(request, id):
     tasks = Task.objects.filter(profile_id=id)
     profile = Profile.objects.get(id=id)
@@ -37,6 +41,29 @@ def profile_view(request, id):
     }
 
     return render(request, 'main/profile-view.html', context)
+
+@login_required
+def profile_delete(request, id):
+    profile = Profile.objects.get(id=id)
+    profile.delete()
+
+    return redirect(f'/profile/')
+
+@login_required
+def profile_update(request, id):
+    profile = Profile.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+
+        if form.is_valid():
+            form.save()
+
+        return redirect(f'/profile/')
+    else:
+        form = ProfileForm(instance=profile)
+
+    return render(request, 'main/profile_update.html', {'form': form})
 
 
 def task_create(request, id):
@@ -56,7 +83,12 @@ def task_create(request, id):
     else:
         form = TaskForm()
 
-    return render(request, 'main/task-create.html', {'form': form, 'profile': profile})
+    context = {
+        'form': form, 
+        'profile': profile
+    }
+
+    return render(request, 'main/task-create.html', context)
 
 def task_view(request, id):
     task = Task.objects.get(id=id)

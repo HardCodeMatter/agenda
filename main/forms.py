@@ -1,9 +1,11 @@
 from django import forms
-from .models import Task
+from .models import Profile, Task
 
 
-class ProfileForm(forms.Form):
-    title = forms.CharField(max_length=24)
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('title',)
 
 
 class TaskForm(forms.ModelForm):

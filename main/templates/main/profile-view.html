@@ -11,6 +11,8 @@
             {% endfor %}
             </div>
 
+        <a href="{% url 'profile_update' profile.id %}" class="btn btn-warning">Update</a>
+        <a href="{% url 'profile_delete' profile.id %}" class="btn btn-danger">Delete</a>
         <a href="{% url 'task_create' profile.id %}" class="btn btn-primary">Create task</a>
     </div>
 {% endblock %}
