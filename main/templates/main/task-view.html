@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="bg-dark rounded p-3">
+        {{ task.name }}
+
+        <a href="{% url 'task_delete' task.id %}">Delete</a>
+    </div>
+{% endblock %}

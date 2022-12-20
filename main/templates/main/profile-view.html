@@ -1,12 +1,15 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <div class="bg-dark rounded p-3">
+    <div class="rounded">
         <div class="list-group">
-            {% for task in tasks %}   
-                <a href="" class="list-group-item">{{ task.name }}</a>
+            {% for task in tasks %}
+                <a href="{% url 'task_view' task.id %}" class="list-group-item bg-dark text-light d-flex">
+                    <div class="flex-grow-1">{{ task.name }}</div>
+                    <small class="text-muted">{{ task.date_created|date:"M d" }}</small>
+                </a>
             {% endfor %}
-        </div>
+            </div>
 
         <a href="{% url 'task_create' profile.id %}" class="btn btn-primary">Create task</a>
     </div>
