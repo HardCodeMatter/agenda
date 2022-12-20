@@ -16,7 +16,7 @@ class Task(models.Model):
     name = models.CharField(('name'), max_length=24)
     description = models.CharField(('description'), max_length=150)
     date_created = models.DateTimeField(('date created'), auto_now_add=True)
-    is_completed = models.BooleanField(('Completed'))
+    is_completed = models.BooleanField(('Completed'), default=False, blank=True)
 
     def __str__(self):
         return f'{self.name}'

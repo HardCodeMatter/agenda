@@ -1,5 +1,13 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <div class="bg-dark rounded">hello</div>
+    <div class="bg-dark rounded p-3">
+        <div class="list-group">
+            {% for task in tasks %}   
+                <a href="" class="list-group-item">{{ task.name }}</a>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'task_create' profile.id %}" class="btn btn-primary">Create task</a>
+    </div>
 {% endblock %}
