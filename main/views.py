@@ -69,3 +69,19 @@ def task_delete(request, id):
     task.delete()
 
     return redirect(f'/profile/{profile.id}')
+
+def task_update(request, id):
+    task = Task.objects.get(id=id)
+    profile = Profile.objects.get(task=id)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            form.save()
+
+        return redirect(f'/profile/{profile.id}')
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, 'main/task-update.html', {'form': form})

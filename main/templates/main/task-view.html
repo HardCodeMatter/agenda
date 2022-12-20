@@ -4,6 +4,7 @@
     <div class="bg-dark rounded p-3">
         {{ task.name }}
 
-        <a href="{% url 'task_delete' task.id %}">Delete</a>
+        <a class="btn btn-warning" href="{% url 'task_update' task.id %}">Update</a>
+        <a class="btn btn-danger" href="{% url 'task_delete' task.id %}">Delete</a>
     </div>
 {% endblock %}
