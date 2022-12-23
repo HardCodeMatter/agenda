@@ -1,20 +1,17 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <div class="bg-dark rounded p-3">
-        {% if profiles %}
-            <div class="list-group">
-                {% for profile in profiles %}   
-                    <a href="{% url 'profile_view' profile.id %}" class="list-group-item">{{ profile.title }}</a>
-                {% endfor %}
-            </div>
-            <a href="{% url 'profile_create' %}" class="btn btn-primary">Create profile</a>
-        {% else %}
-            <div class="align-self-center text-center">
-                <p class="h4">Profiles not found</p>
-                <p>Create a new profile using the button below.</p>
-                <a href="{% url 'profile_create' %}" class="btn btn-primary">Create profile</a>
-            </div>
-        {% endif %}
+    <div class="d-flex" style="height: calc(100vh - 35px);">
+        <div class="col-1 bg-white rounded-start p-3" style="width: 200px;">
+            <a href="{% url 'profile_create' %}" class="btn btn-primary w-100">Create profile</a>
+        </div>
+
+        <div class="vr"></div>
+
+        <div class="col list-group list-group-flush bg-white rounded-end">
+            {% for profile in profiles %}   
+                <a href="{% url 'profile_view' profile.id %}" class="list-group-item border-secondary">{{ profile.title }}</a>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

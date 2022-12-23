@@ -32,7 +32,7 @@ def profile_list(request):
 
 @login_required
 def profile_view(request, id):
-    tasks = Task.objects.filter(profile_id=id)
+    tasks = Task.objects.filter(profile_id=id).order_by('-date_created')
     profile = Profile.objects.get(id=id)
 
     context = {
@@ -59,11 +59,16 @@ def profile_update(request, id):
         if form.is_valid():
             form.save()
 
-        return redirect(f'/profile/')
+        return redirect(f'/profile/{id}')
     else:
         form = ProfileForm(instance=profile)
 
-    return render(request, 'main/profile_update.html', {'form': form})
+    context = {
+        'form': form,
+        'profile': profile
+    }
+
+    return render(request, 'main/profile_update.html', context)
 
 
 def task_create(request, id):
@@ -116,4 +121,9 @@ def task_update(request, id):
     else:
         form = TaskForm(instance=task)
 
-    return render(request, 'main/task-update.html', {'form': form})
+    context = {
+        'form': form,
+        'profile': profile
+    }
+
+    return render(request, 'main/task-update.html', context)
