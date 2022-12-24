@@ -10,7 +10,13 @@
 
         <div class="col list-group list-group-flush bg-white rounded-end">
             {% for profile in profiles %}   
-                <a href="{% url 'profile_view' profile.id %}" class="list-group-item border-secondary">{{ profile.title }}</a>
+                <a href="{% url 'profile_view' profile.id %}" class="list-group-item border-secondary">
+                    {% if profile.is_new %}
+                    <span class="badge bg-primary">New</span>
+                    {% endif %}
+                    
+                    {{ profile.title }}
+                </a>
             {% endfor %}
         </div>
     </div>

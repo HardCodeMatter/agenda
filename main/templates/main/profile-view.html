@@ -8,9 +8,15 @@
         
         <div class="card-img-overlay d-flex align-items-start flex-column">
             <div class="mb-auto">
-                <h5 class="card-title">{{ profile.title }}</h5>
+                <h5 class="card-title">
+                    {% if profile.is_new %}
+                    <span class="badge bg-primary">New</span>
+                    {% endif %}
+                    
+                    {{ profile.title }}
+                </h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small>Created: {{ profile.date_created|date:"F d, Y" }}</small></p>
+                <p class="card-text"><small>Created {{ profile.date_created|date:"F d, Y" }}</small></p>
             </div>
             
             <div class="d-flex gap-2">
