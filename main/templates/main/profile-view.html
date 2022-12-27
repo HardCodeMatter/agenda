@@ -20,6 +20,7 @@
             </div>
             
             <div class="d-flex gap-2">
+                <a class="btn btn-outline-primary" href="{% url 'profile_list' %}">Back</a>
                 <a class="btn btn-primary" href="{% url 'profile_update' profile.id %}"><i class="bi bi-pencil"></i></a>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProfileModal">
                     <i class="bi bi-trash"></i>
@@ -41,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                </div>              
+                </div>
             </div>
         </div>
 
