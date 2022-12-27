@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .models import Profile, Task
 from .forms import ProfileForm, TaskForm
 
 
 def index(request):
-    return render(request, 'main/base.html', {})
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+    else:
+        user = None
+
+    return render(request, 'main/base.html', {'user': user})
 
 @login_required
 def profile_create(request):

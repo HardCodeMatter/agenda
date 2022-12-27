@@ -40,7 +40,36 @@
         </div>
 
         <div class="col">
-            {% block content %}{% endblock %}
+            <div class="row mb-3">
+                <div class="bg-dark rounded p-3 d-flex justify-content-between">
+                    <div class="nav"></div>
+
+                    {% if user %}
+                        <div class="dropdown">
+                            <button class="btn btn-transparent text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.first_name }} {{ user.last_name }}
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Log out</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div>
+                            <a class="btn btn-outline-primary me-1" href="{% url 'login' %}">Log in</a>
+                            <a class="btn btn-primary" href="/register/">Sign up</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
         </div>
     </div>
 
