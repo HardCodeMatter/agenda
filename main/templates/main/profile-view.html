@@ -8,12 +8,19 @@
         
         <div class="card-img-overlay d-flex align-items-start flex-column">
             <div class="mb-auto">
-                <h5 class="card-title">{{ profile.title }}</h5>
+                <h5 class="card-title">
+                    {% if profile.is_new %}
+                    <span class="badge bg-primary">New</span>
+                    {% endif %}
+                    
+                    {{ profile.title }}
+                </h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p class="card-text"><small>Created: {{ profile.date_created|date:"F d, Y" }}</small></p>
+                <p class="card-text"><small>Created {{ profile.date_created|date:"F d, Y" }}</small></p>
             </div>
             
             <div class="d-flex gap-2">
+                <a class="btn btn-outline-primary" href="{% url 'profile_list' %}">Back</a>
                 <a class="btn btn-primary" href="{% url 'profile_update' profile.id %}"><i class="bi bi-pencil"></i></a>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProfileModal">
                     <i class="bi bi-trash"></i>
@@ -35,7 +42,7 @@
                             </div>
                         </div>
                     </div>
-                </div>              
+                </div>
             </div>
         </div>
 
@@ -50,7 +57,7 @@
 
         <ul class="col list-group list-group-flush bg-white rounded-end">
             {% for task in tasks %}
-                <a href="{% url 'task_update' task.id %}" class="list-group-item border-secondary d-flex">
+                <a class="d-flex list-group-item border-secondary" href="{% url 'task_update' task.id %}">
                     <div class="flex-grow-1">{{ task.name }}</div>
                     <small class="text-muted">{{ task.date_created|date:"M d" }}</small>
                 </a>

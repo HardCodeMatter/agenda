@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .models import Profile, Task
 from .forms import ProfileForm, TaskForm
 
 
 def index(request):
-    return render(request, 'main/base.html', {})
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+    else:
+        user = None
+
+    return render(request, 'main/base.html', {'user': user})
 
 @login_required
 def profile_create(request):
@@ -71,6 +77,7 @@ def profile_update(request, id):
     return render(request, 'main/profile_update.html', context)
 
 
+@login_required
 def task_create(request, id):
     profile = Profile.objects.get(id=id)
 
@@ -95,11 +102,13 @@ def task_create(request, id):
 
     return render(request, 'main/task-create.html', context)
 
+@login_required
 def task_view(request, id):
     task = Task.objects.get(id=id)
 
     return render(request, 'main/task-view.html', {'task': task})
 
+@login_required
 def task_delete(request, id):
     profile = Profile.objects.get(task=id)
     task = Task.objects.get(id=id)
@@ -107,6 +116,7 @@ def task_delete(request, id):
 
     return redirect(f'/profile/{profile.id}')
 
+@login_required
 def task_update(request, id):
     task = Task.objects.get(id=id)
     profile = Profile.objects.get(task=id)
