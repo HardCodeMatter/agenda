@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="bg-white text-dark rounded p-3">
+        <form action="{% url 'task_create' profile.id %}" method="post">
+            {% csrf_token %}
+            <h4 class="mb-3">Adding task</h4>
+
+            <div class="mb-3">{{ form.name|as_crispy_field }}</div>
+            <div class="mb-3">{{ form.description|as_crispy_field }}</div>
+
+            <button class="btn btn-primary" type="submit">Create</button>
+            <a href="{% url 'profile_view' profile.id %}" class="btn btn-outline-danger">Back</a>
+        </form>
+    </div>
+{% endblock %}

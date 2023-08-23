@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="bg-white text-dark rounded p-3">
+        <form action="" method="post">
+            {% csrf_token %}
+            <h4>Updating task</h4>
+            
+            <div class="d-inline mb-3">
+                {{ form.is_completed|as_crispy_field }}
+            </div>
+
+            <div class="row mb-3">
+                {{ form.name|as_crispy_field }}
+            </div>
+            <div class="row mb-3">
+                {{ form.description|as_crispy_field }}
+            </div>
+            
+            <button class="btn btn-primary" type="submit">Update</button>
+            <a href="{% url 'profile_view' profile.id %}" class="btn btn-outline-danger">Back</a>
+        </form>
+    </div>
+{% endblock %}
